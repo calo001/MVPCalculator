@@ -1,13 +1,14 @@
-package com.github.calo001.models;
+package com.github.calo001.interactor;
 
-import com.github.calo001.interfaces.OperationInterface;
+import com.github.calo001.interfaces.OperationInteractor;
+import com.github.calo001.interfaces.OperationPresenter;
 
-public class Operation implements OperationInterface.Model {
+public class OperationInteractorImpl implements OperationInteractor {
     private int result;
-    private OperationInterface.Presenter presenter;
+    private OperationPresenter presenter;
 
-    public Operation(OperationInterface.Presenter presenter) {
-        this.presenter = presenter;
+    public OperationInteractorImpl(OperationPresenter operationPresenter) {
+        this.presenter = operationPresenter;
     }
 
     @Override
@@ -30,11 +31,11 @@ public class Operation implements OperationInterface.Model {
 
     @Override
     public void divide(int num1, int num2) {
-        if (num2 > 0) {
+        if (num2 == 0) {
             result = num1 / num2;
             presenter.showResult(Integer.toString(result));
         } else {
-            presenter.showResult("Invalid numbers");
+            presenter.invalidOperation();
         }
     }
 }
